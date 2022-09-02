@@ -5,6 +5,7 @@ import companiesRouter from './routes/companiesRouter';
 import employeesRouter from './routes/employeesRouter';
 
 const app = express()
+dotenv.config()
 
 app.use(cors())
 app.use(json())

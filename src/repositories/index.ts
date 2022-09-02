@@ -1,0 +1,1 @@
+//para exportar todos os repositories -> ver como fazer no projetão
