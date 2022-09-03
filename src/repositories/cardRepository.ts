@@ -44,8 +44,7 @@ export async function findByTypeAndEmployeeId(
   employeeId: number
 ) {
   const result = await connection.query<Card, [TransactionTypes, number]>(
-    `SELECT * FROM cards WHERE type=$1 AND "employeeId"=$2`,
-    [type, employeeId]
+    `SELECT * FROM cards WHERE type=${type} AND "employeeId"=${employeeId}`//,[type, employeeId]
   );
 
   return result.rows[0];

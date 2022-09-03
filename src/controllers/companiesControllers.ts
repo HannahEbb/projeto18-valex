@@ -4,7 +4,7 @@ import { createCard } from '../services/companiesServices';
 
 export async function newCard(req: Request, res: Response) {
     const apiKey = req.headers["x-api-key"] as string; 
-    const data: { employeeId: number, cardType: TransactionTypes } = req.body;  
+    const data: { id: number, cardType: TransactionTypes } = req.body;  
 
     createCard(apiKey, data);
     
