@@ -62,13 +62,12 @@ export async function rechargeCard(apiKey: string, rechargeData: rechargeReposit
     }
    
     const id: number = rechargeData.cardId;
-    const isCardRegistered = await cardRepository.findById(id) //employees nao podem ter mais de um cartao do mesmo tipo
+    const isCardRegistered = await cardRepository.findById(id) 
         if(!isCardRegistered) {
             throw 'Card must be registered to be recharged.'
          }
          
         if(isCardRegistered.isBlocked) {
-            console.log(isCardRegistered.isBlocked);
             throw 'Card must be active to be recharged. Unblock the card to enable recharge.'
         }
 
