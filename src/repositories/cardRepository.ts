@@ -32,8 +32,7 @@ export async function find() {
 
 export async function findById(id: number) {
   const result = await connection.query<Card, [number]>(
-    "SELECT * FROM cards WHERE id=$1",
-    [id]
+    `SELECT * FROM cards WHERE id=${id}`
   );
 
   return result.rows[0];
