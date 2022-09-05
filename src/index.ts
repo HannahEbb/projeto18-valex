@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import companiesRouter from './routes/companiesRouter';
 import employeesRouter from './routes/employeesRouter';
 import 'express-async-errors';
-import { errorHandler } from './middlewares/controllers/errorHandler';
+import { errorHandler } from './middlewares/errorHandler';
 
 
 const app = express()
