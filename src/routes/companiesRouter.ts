@@ -3,7 +3,7 @@ import { newCard, newRecharge } from '../controllers/companiesControllers';
 
 const companiesRouter = Router();
 
-companiesRouter.post('/create-card', newCard) // schema para validar formato dos dados recebidos e controller
-companiesRouter.post('/recharge', newRecharge) // schema para validar formato dos dados recebidos e controller
+companiesRouter.post('/create-card', newCard) 
+companiesRouter.post('/recharge', newRecharge) 
 
 export default companiesRouter;

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { TransactionTypes } from '../repositories/cardRepository';
-import { RechargeInsertData } from '../repositories/rechargeRepository';
 import { createCard, rechargeCard } from '../services/companiesServices';
 
 export async function newCard(req: Request, res: Response) {
