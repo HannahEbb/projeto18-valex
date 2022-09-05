@@ -16,3 +16,19 @@ export async function newBalanceCheck(req: Request, res: Response) {
     
     res.status(200).send(result);
 }
+
+export async function newCardBlock(req: Request, res: Response) { 
+    const { id, yourPassword } = req.body;  
+
+    await employeesServices.blockCard( id, yourPassword); 
+    
+    res.status(200).send({message: 'Card blocked successfully by the employee.'});
+}
+
+export async function newCardUnblock(req: Request, res: Response) { 
+    const { id, yourPassword } = req.body;  
+
+    await employeesServices.unblockCard( id, yourPassword); 
+    
+    res.status(200).send({message: 'Card unblocked successfully by the employee.'});
+}

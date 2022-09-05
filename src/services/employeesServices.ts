@@ -56,3 +56,61 @@ export async function checkCardBalance( id: number ) {
     }
     
 }
+
+export async function blockCard( id: number, yourPassword: string) {
+    const isCardRegistered = await cardRepository.findById(id) 
+    if(!isCardRegistered) {
+        throw 'Card must be registered to be activated.'
+        }
+
+    const isExpired: boolean = Number(dayjs().format('MM/YY').split('/')[1]) > Number(isCardRegistered.expirationDate.split('/')[1]) || Number(dayjs().format('MM/YY').split('/')[0]) > Number(isCardRegistered.expirationDate.split('/')[0]) && Number(dayjs().format('MM/YY').split('/')[1]) === Number(isCardRegistered.expirationDate.split('/')[1]);  
+    if(isExpired) {
+        throw 'Card is expired! Create another card for your employee and recharge it.'
+        }
+
+    if(isCardRegistered.password) {
+        const isPasswordValid: boolean = cryptr.decrypt(isCardRegistered.password) === yourPassword;
+        if(!isPasswordValid) {
+            throw 'The security code is incorrect!'
+            } 
+    } else {
+        throw 'This card is not active! Activate it before trying to block it.'
+    }
+
+    if(isCardRegistered.isBlocked) {
+        throw 'Card must be unblocked to be blocked!'
+        }
+
+    const cardData = { isBlocked: true }
+
+    cardRepository.update(id, cardData)
+}
+
+export async function unblockCard( id: number, yourPassword: string) {
+    const isCardRegistered = await cardRepository.findById(id) 
+    if(!isCardRegistered) {
+        throw 'Card must be registered to be activated.'
+        }
+
+    const isExpired: boolean = Number(dayjs().format('MM/YY').split('/')[1]) > Number(isCardRegistered.expirationDate.split('/')[1]) || Number(dayjs().format('MM/YY').split('/')[0]) > Number(isCardRegistered.expirationDate.split('/')[0]) && Number(dayjs().format('MM/YY').split('/')[1]) === Number(isCardRegistered.expirationDate.split('/')[1]);  
+    if(isExpired) {
+        throw 'Card is expired! Create another card for your employee and recharge it.'
+        }
+
+    if(isCardRegistered.password) {
+        const isPasswordValid: boolean = cryptr.decrypt(isCardRegistered.password) === yourPassword;
+        if(!isPasswordValid) {
+            throw 'The security code is incorrect!'
+            } 
+    } else {
+        throw 'This card is not active! Activate it before trying to block it.'
+    }
+
+    if(!isCardRegistered.isBlocked) {
+        throw 'Card must be unblocked to be blocked!'
+        }
+
+    const cardData = { isBlocked: false }
+
+    cardRepository.update(id, cardData)
+}
