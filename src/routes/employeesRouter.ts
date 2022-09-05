@@ -7,6 +7,6 @@ employeesRouter.put('/activate-card', employeesController.newActivation) // sche
 employeesRouter.get('/card-balance/:id', employeesController.newBalanceCheck)
 employeesRouter.put('/block-card', employeesController.newCardBlock)
 employeesRouter.put('/unblock-card', employeesController.newCardUnblock)
-employeesRouter.put('/purchase')
+employeesRouter.post('/purchase', employeesController.newCardPurchase)
 
 export default employeesRouter;

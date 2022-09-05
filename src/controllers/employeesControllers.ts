@@ -32,3 +32,11 @@ export async function newCardUnblock(req: Request, res: Response) {
     
     res.status(200).send({message: 'Card unblocked successfully by the employee.'});
 }
+
+export async function newCardPurchase(req: Request, res: Response) { 
+    const { cardId, yourPassword, businessId, amount } = req.body;  
+
+    await employeesServices.purchaseWithCard( cardId, yourPassword, businessId, amount ); 
+    
+    res.status(200).send({message: 'Purchase performed successfully!'});
+}
