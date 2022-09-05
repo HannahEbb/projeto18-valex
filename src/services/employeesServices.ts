@@ -1,5 +1,7 @@
 import * as employeeRepository from '../repositories/employeeRepository';
 import * as cardRepository from '../repositories/cardRepository';
+import * as paymentRepository from '../repositories/paymentRepository';
+import * as rechargeRepository from '../repositories/rechargeRepository';
 import Cryptr from 'cryptr';
 import dayjs from 'dayjs';
 
@@ -29,3 +31,28 @@ export async function activateCard( id: number, securityCode: string, yourPasswo
 
     cardRepository.update(id, cardData);
 } 
+
+export async function checkCardBalance( id: number ) {
+    const isCardRegistered = await cardRepository.findById(id) 
+    if(!isCardRegistered) {
+        throw 'Card must be registered to be activated.'
+        }
+
+    const cardId = id;
+    const purchases = await paymentRepository.findByCardId(cardId);
+    const recharges = await rechargeRepository.findByCardId(cardId);
+   
+    const spent = purchases.reduce(function(prev, cur) {
+        return prev + cur.amount;
+      }, 0);
+    const earned = recharges.reduce(function(prev, cur) {
+        return prev + cur.amount;
+      }, 0);
+
+    return {
+        balance: earned-spent,
+        transactions: purchases,
+        recharges: recharges
+    }
+    
+}
